@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Haidlir&#39;s Blog</title>
-    <link>http://haidlir.github.io/blog/</link>
-    <description>Recent content on Haidlir&#39;s Blog</description>
+    <title>Fad on Haidlir&#39;s Blog</title>
+    <link>http://haidlir.github.io/blog/categories/fad/</link>
+    <description>Recent content in Fad on Haidlir&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Fri, 24 Jul 2015 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://haidlir.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://haidlir.github.io/blog/categories/fad/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Drox SDN Application - HowTo</title>
