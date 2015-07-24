@@ -19,7 +19,7 @@
 &lt;p&gt;Since drox is built on pox controller, you should install/copy/clone pox controller into your machine. You can find pox&amp;rsquo;s repository with all its documentations in &lt;a href=&#34;http://www.github.com/noxrepo/pox&#34;&gt;here&lt;/a&gt;. Once your pox is working, you can download/clone/copy drox repository and place it into the &lt;em&gt;ext&lt;/em&gt; directory inside the &lt;em&gt;pox&lt;/em&gt; directory.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;cd [pox-directory]/ext
-git clone http://www.github.com/haidlir/drox/drox.git
+git clone http://www.github.com/haidlir/drox.git
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;To run drox sdn application, just execute &lt;em&gt;run.sh&lt;/em&gt;. That shell script (&lt;em&gt;run.sh&lt;/em&gt;) makes &lt;em&gt;pox.py&lt;/em&gt; to call &lt;em&gt;main.py&lt;/em&gt; (in drox directory) and the dependencies.&lt;/p&gt;
