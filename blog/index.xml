@@ -5,8 +5,134 @@
     <link>http://haidlir.github.io/blog/</link>
     <description>Recent content on Haidlir&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 24 Jul 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2015 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://haidlir.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Template Latex Buku Tugas Akhir Teknik Telekomunikasi Universitas Telkom - HowTo</title>
+      <link>http://haidlir.github.io/blog/projects-related/Latex-TA-TT-HowTo/</link>
+      <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://haidlir.github.io/blog/projects-related/Latex-TA-TT-HowTo/</guid>
+      <description>
+
+&lt;p&gt;Berawal dari susahnya membuat buku tugas akhir menggunakan &lt;em&gt;libre office&lt;/em&gt;, akhirnya aku berkenalan dengan Latex, sebuah program komputer untuk &lt;em&gt;typesetting&lt;/em&gt; dokumen sekaligus &lt;em&gt;markup language&lt;/em&gt;. Aku akhirnya memutuskan untuk mengulangi pembuatan buku tugas akhir menggunakan Latex setelah google mengantarkanku ke beberapa forum, yang sedikit banyak memmbuatku &lt;em&gt;kepo&lt;/em&gt; tentang apa itu Latex. Banyak tulisan maupun komentar di forum-forum yang aku kunjungi itu menggambarkan bagaimana mudahnya memanfaatkan Latex sebagai &lt;em&gt;word processor&lt;/em&gt;. Namun, aku beri &lt;em&gt;descalimer&lt;/em&gt; dulu, bahwa kemudahan itu datang setelah berjuang beberapa saat memahami cara kerja Latex, dan membuat &lt;em&gt;template&lt;/em&gt; yang cocok dengan yang diinginkan. Walaupun begitu, tidak perlu takut bergelut dengan Latex, ribuan bahkan mungkin jutaan laman forum, serta pengguna Latex lainnya siap membantu untuk melewati segala keriwehan saat menggunakan Latex. Sehingga pada akhirnya, ekspektasi menggunakan Latex untuk memudahkan dalam pembuatan tugas akhir maupun karya ilmiah lainnya dapat menjadi kenyataan.&lt;/p&gt;
+
+&lt;p&gt;Di Internet banyak sekali tulisan yang membahas tentang Latex. Namun, aku sarankan dua laman &lt;a href=&#34;https://en.wikipedia.org/wiki/LaTeX&#34;&gt;ini 1&lt;/a&gt; dan &lt;a href=&#34;https://en.wikibooks.org/wiki/LaTeX&#34;&gt;ini 2&lt;/a&gt; jika anda ingin mengetahui sekilas tentang Latex. Sedangkan untuk belajar kode-kode Latex yang sering digunakan seperti penebalan, pemiringan huruf, dan lain sebagainya dapat dilihat di &lt;a href=&#34;https://www.authorea.com/users/3/articles/6868&#34;&gt;cheatsheet berikut&lt;/a&gt; dan &lt;a href=&#34;https://en.wikibooks.org/wiki/LaTeX#Contents&#34;&gt;Latex Wikibooks&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Setelah menyelesaikan tugas akhirku, aku terpikirkan untuk membuat &lt;em&gt;template&lt;/em&gt; Latex untuk buku tugas akhir. Jadi bagi para pejuang tugas akhir lain yang ingin memanfaatkan Latex dalam pembuatan buku tugas akhir, dipersilahkan untuk menggunakan &lt;em&gt;tempate&lt;/em&gt; yang sudah aku buat dan unggah ke &lt;a href=&#34;https://github.com/haidlir/Latex_TA_S1TT_TelU&#34;&gt;https://github.com/haidlir/Latex_TA_S1TT_TelU&lt;/a&gt;. &lt;em&gt;Template&lt;/em&gt; tersebut merupakan dasar &lt;em&gt;template&lt;/em&gt; yang aku gunakan juga dalam menyusun tugas akhirku. Oleh karena itu, &lt;em&gt;template&lt;/em&gt; ini memang disesuaikan dengan format yang digunakan di prodi S1 Teknik Telekomunikasi Universitas Telkom. Namun bagi mahasiswa lain yang ingin menjadikan &lt;em&gt;template&lt;/em&gt; ini sebagai dasar dari karya ilmiah lainnya dipersilahkan, tentunya tak melupakan aturan lisensi yang dari awal dibuat oleh &lt;a href=&#34;https://github.com/edom/uistyle&#34;&gt;Erik Dominikus&lt;/a&gt;, pembuat &lt;em&gt;template&lt;/em&gt; awalnya.&lt;/p&gt;
+
+&lt;p&gt;Tulisan ini dibagi ke dalam beberapa bagian:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#install&#34;&gt;&lt;em&gt;Install&lt;/em&gt; Latex ke dalam komputer&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#clone&#34;&gt;&lt;em&gt;Download/Clone&lt;/em&gt; Template Latex untuk Buku Tugas Akhir&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;dan &lt;a href=&#34;#doc&#34;&gt;Keterangan Template Latex untuk Buku Tugas Akhir&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;install-latex-a-id-install-a:9ce48e0df7230c4df55d18af6849444a&#34;&gt;&lt;em&gt;Install&lt;/em&gt; Latex &lt;a id=&#34;install&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Untuk menggunakan Latex, pada komputer harus terpasang/ter-&lt;em&gt;install&lt;/em&gt; Latex.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install texlive
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Terkadang saat melakukan proses &lt;em&gt;install&lt;/em&gt; texlive, kita diberikan pesan &lt;em&gt;error&lt;/em&gt; bahwa repositori tidak tersedia, oleh karena itu silahkan tambahkan link repositori untuk texlive.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo add-apt-repository ppa:texlive-backports/ppa
+$ sudo apt-get update
+$ sudo apt-get install texlive
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Untuk memudahkan dalam proses &lt;em&gt;editing file&lt;/em&gt; Latex dan &lt;em&gt;viewing&lt;/em&gt; hasil kode Latex yang dibuat, aku sarankan anda menginstall &lt;em&gt;text editor&lt;/em&gt; yang sudah dilengkapi &lt;em&gt;plugin&lt;/em&gt; Latex. Aku sendiri menggunakan TexMaker &lt;a href=&#34;http://www.xm1math.net/texmaker/&#34;&gt;[1]&lt;/a&gt; sebagai &lt;em&gt;editor&lt;/em&gt;. Cara meng-&lt;em&gt;install&lt;/em&gt; TexMaker sebagai berikut.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install texmaker
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Untuk pengguna sistem operasi selain Ubuntu silahkan merujuk ke web masing-masing aplikasi yang dibutuhkan, &lt;a href=&#34;https://www.tug.org/texlive/acquire-netinstall.html&#34;&gt;web texlive&lt;/a&gt; dan &lt;a href=&#34;http://www.xm1math.net/texmaker/download.html&#34;&gt;web texmaker&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;download-clone-template-latex-a-id-clone-a:9ce48e0df7230c4df55d18af6849444a&#34;&gt;&lt;em&gt;Download/Clone&lt;/em&gt; Template Latex &lt;a id=&#34;clone&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Sebelumnya, aku telah membuat sebuah mengunggah &lt;em&gt;template&lt;/em&gt; yang aku buat ke github. Oleh karena itu, bagi anda yang ingin menggunakan &lt;em&gt;template&lt;/em&gt; ini dapat melakukan &lt;em&gt;cloning&lt;/em&gt; repositori &lt;em&gt;template&lt;/em&gt; ini.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/haidlir/Latex_TA_S1TT_TelU.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;atau anda dapat mendownload &lt;em&gt;file&lt;/em&gt; .zip, lalu anda dapat melakukan ekstraksi &lt;em&gt;file&lt;/em&gt; .zip tadi. &lt;em&gt;Template&lt;/em&gt; dapat diunduh di &lt;a href=&#34;https://github.com/haidlir/Latex_TA_S1TT_TelU/archive/master.zip&#34;&gt;sini&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;dokumentasi-template-latex-untuk-buku-tugas-akhir-a-id-doc-a:9ce48e0df7230c4df55d18af6849444a&#34;&gt;Dokumentasi Template Latex untuk Buku Tugas Akhir &lt;a id=&#34;doc&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Setelah &lt;em&gt;template&lt;/em&gt; sudah berada di &lt;em&gt;local&lt;/em&gt; atau komputer anda. Anda dapat memulai proses pembuatan buku tugas akhir anda.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Files&lt;/em&gt; yang harus di-&lt;em&gt;edit&lt;/em&gt; untuk menyesuaikan &lt;em&gt;template&lt;/em&gt; ini menjadi buku yang anda inginkan adalah &lt;strong&gt;konfigurasi.tex&lt;/strong&gt;. Seusaikan nilai setiap variabel dengan tugas akhir anda.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;\var{\judul}{[Judul Tugas Akhir dalam bahasa Indonesia]}
+\Var{\Judul}{[Judul Tugas Akhir dalam bahasa Indonesia]}
+\var{\judulInggris}{[Judul Tugas Akhir dalam bahasa Inggris]}
+\Var{\JudulInggris}{[Judul Tugas Akhir dalam bahasa Inggris]}
+\var{\type}{Tugas Akhir}
+\Var{\Type}{Tugas Akhir}
+\var{\penulis}{[Nama Penulis]}
+\var{\alamat}{[Alamat rumah Penulis]}
+\var{\tlp}{[Nomor kontak Penulis]}
+\var{\email}{[Email Penulis]}
+\Var{\Penulis}{[Nama Penulis]}
+\var{\nim}{[Nim Penulis]}
+\Var{\Fakultas}{[Fakultas Penulis berkuliah]}
+\var{\fakultas}{[Fakultas Penulis berkuliah]}
+\Var{\Program}{[Prodi Penulis berkuliah]}
+\var{\program}{[Prodi Penulis berkuliah]}
+\Var{\Tahun}{[Tahun Publikasi tugas akhir]]}
+\var{\gelar}{[Gelar yang akan diraih Penulis]]}
+\var{\tanggalPengesahan}{[Tanggal pengesahan tugas akhir]} 
+\var{\pembimbingSatu}{[Nama Pembimbing 1]}
+\var{\nikSatu}{[NIP Pembimbing 1]}
+\var{\pembimbingDua}{[Nama Pembimbing 2]}
+\var{\nikDua}{[NIP Pembimbing 2]}
+...
+\Var{\kataPengantar}{Kata Pengantar}
+\Var{\babSatu}{Pendahuluan}
+\Var{\babDua}{Tinjauan Pustaka} -&amp;gt; Ganti dengan nama bab yang diinginkan.
+\Var{\babTiga}{Menggunakan \latex} -&amp;gt; Ganti dengan nama bab yang diinginkan.
+\Var{\babEmpat}{Template \latex~ untuk Tugas Akhir S1 Teknik Telekomunikasi} -&amp;gt; Ganti dengan nama bab yang diinginkan.
+\Var{\babLima}{Kesimpulan dan Saran} -&amp;gt; Ganti dengan nama bab yang diinginkan.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Setelah anda merubah nilai variabel di dalam &lt;strong&gt;konfigurasi.tex&lt;/strong&gt;, lanjutkan dengan pengisian konten buku anda. Silahkan modifikasi file&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;abstrak.tex&lt;/li&gt;
+&lt;li&gt;abstract.tex&lt;/li&gt;
+&lt;li&gt;pengantar.tex&lt;/li&gt;
+&lt;li&gt;bab1.tex&lt;/li&gt;
+&lt;li&gt;bab2.tex&lt;/li&gt;
+&lt;li&gt;bab3.tex&lt;/li&gt;
+&lt;li&gt;bab4.tex&lt;/li&gt;
+&lt;li&gt;bab5.tex&lt;/li&gt;
+&lt;li&gt;pustaka.tex&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Dengan menggunakan Latex, anda tidak perlu ribet membuat daftar isi, gambar, dan tabel. Setelah kode-kode Latex diproses &lt;u&gt;dua kali tanpa pesan &lt;em&gt;error&lt;/em&gt;&lt;/u&gt;, biasanya halaman daftar isis, gambar, dan tabel sudah secara otomatis terbuat. Begitu juga dengan halaman pengesahan dan orisinalitas, sudah secara otomatis terbuat sesuai dengan nilai variable yang dimasukkan ke &lt;strong&gt;konfigurasi.tex&lt;/strong&gt; tadi.&lt;/p&gt;
+
+&lt;p&gt;Beberapa kekurangan dari &lt;em&gt;template&lt;/em&gt; ini yang sudah terdeteksi dan masih akan diperbaiki antara lain.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Halaman lampiran yang belum terintegrasi dengan &lt;em&gt;template&lt;/em&gt; yang dibuat, sehingga harus dimasukkan atau digabungkan secara manual.&lt;/li&gt;
+&lt;li&gt;Oleh karena itu, halaman daftar lampiran juga tidak otomatis terbuat dengan benar, sehingga harus diisi secara manual.&lt;/li&gt;
+&lt;li&gt;Pemenggalan kata masih diaktifkan, karena jika tidak diaktifkan, maka &lt;em&gt;listing&lt;/em&gt; kode yang dimasukkan ke dalam dokumen Latex tidak bisa melakukan &lt;em&gt;breakline&lt;/em&gt;. Namun anda dapat mematikan fitur pemenggalan kata dengan merubah bari ke 275 pada &lt;strong&gt;ta.sty&lt;/strong&gt; dari&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;%\usepackage[none]{hyphenat}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;menjadi&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;\usepackage[none]{hyphenat}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Bagi kawan-kawan lain yang ingin bertanya maupun memberi kritik dan saran, dipersilahkan menghubungi penulis.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Drox SDN Application - HowTo</title>

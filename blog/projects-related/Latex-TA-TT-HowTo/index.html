@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Haidlir&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="http://haidlir.github.io/blog/css/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="http://haidlir.github.io/blog/css/hugo-bootswatch.css">
+  </head>
+  <body>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="http://haidlir.github.io/blog/" class="navbar-brand">Haidlir&#39;s Blog</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav navbar-right">
+           <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="sections">Sections<span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="download">
+              
+                <li><a href="http://haidlir.github.io/blog/projects-related">projects-related</a></li>
+              
+              </ul>
+            </li> 
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+        <h1><a href="http://haidlir.github.io/blog/projects-related/Latex-TA-TT-HowTo/">Template Latex Buku Tugas Akhir Teknik Telekomunikasi Universitas Telkom - HowTo</a></h1>
+        <span class="lead">Sun, Jul 26, 2015</span>
+        <div class="post">
+            
+
+<p>Berawal dari susahnya membuat buku tugas akhir menggunakan <em>libre office</em>, akhirnya aku berkenalan dengan Latex, sebuah program komputer untuk <em>typesetting</em> dokumen sekaligus <em>markup language</em>. Aku akhirnya memutuskan untuk mengulangi pembuatan buku tugas akhir menggunakan Latex setelah google mengantarkanku ke beberapa forum, yang sedikit banyak memmbuatku <em>kepo</em> tentang apa itu Latex. Banyak tulisan maupun komentar di forum-forum yang aku kunjungi itu menggambarkan bagaimana mudahnya memanfaatkan Latex sebagai <em>word processor</em>. Namun, aku beri <em>descalimer</em> dulu, bahwa kemudahan itu datang setelah berjuang beberapa saat memahami cara kerja Latex, dan membuat <em>template</em> yang cocok dengan yang diinginkan. Walaupun begitu, tidak perlu takut bergelut dengan Latex, ribuan bahkan mungkin jutaan laman forum, serta pengguna Latex lainnya siap membantu untuk melewati segala keriwehan saat menggunakan Latex. Sehingga pada akhirnya, ekspektasi menggunakan Latex untuk memudahkan dalam pembuatan tugas akhir maupun karya ilmiah lainnya dapat menjadi kenyataan.</p>
+
+<p>Di Internet banyak sekali tulisan yang membahas tentang Latex. Namun, aku sarankan dua laman <a href="https://en.wikipedia.org/wiki/LaTeX">ini 1</a> dan <a href="https://en.wikibooks.org/wiki/LaTeX">ini 2</a> jika anda ingin mengetahui sekilas tentang Latex. Sedangkan untuk belajar kode-kode Latex yang sering digunakan seperti penebalan, pemiringan huruf, dan lain sebagainya dapat dilihat di <a href="https://www.authorea.com/users/3/articles/6868">cheatsheet berikut</a> dan <a href="https://en.wikibooks.org/wiki/LaTeX#Contents">Latex Wikibooks</a>.</p>
+
+<p>Setelah menyelesaikan tugas akhirku, aku terpikirkan untuk membuat <em>template</em> Latex untuk buku tugas akhir. Jadi bagi para pejuang tugas akhir lain yang ingin memanfaatkan Latex dalam pembuatan buku tugas akhir, dipersilahkan untuk menggunakan <em>tempate</em> yang sudah aku buat dan unggah ke <a href="https://github.com/haidlir/Latex_TA_S1TT_TelU">https://github.com/haidlir/Latex_TA_S1TT_TelU</a>. <em>Template</em> tersebut merupakan dasar <em>template</em> yang aku gunakan juga dalam menyusun tugas akhirku. Oleh karena itu, <em>template</em> ini memang disesuaikan dengan format yang digunakan di prodi S1 Teknik Telekomunikasi Universitas Telkom. Namun bagi mahasiswa lain yang ingin menjadikan <em>template</em> ini sebagai dasar dari karya ilmiah lainnya dipersilahkan, tentunya tak melupakan aturan lisensi yang dari awal dibuat oleh <a href="https://github.com/edom/uistyle">Erik Dominikus</a>, pembuat <em>template</em> awalnya.</p>
+
+<p>Tulisan ini dibagi ke dalam beberapa bagian:</p>
+
+<ul>
+<li><a href="#install"><em>Install</em> Latex ke dalam komputer</a>,</li>
+<li><a href="#clone"><em>Download/Clone</em> Template Latex untuk Buku Tugas Akhir</a>,</li>
+<li>dan <a href="#doc">Keterangan Template Latex untuk Buku Tugas Akhir</a>.</li>
+</ul>
+
+<h3 id="install-latex-a-id-install-a:9ce48e0df7230c4df55d18af6849444a"><em>Install</em> Latex <a id="install"></a></h3>
+
+<p>Untuk menggunakan Latex, pada komputer harus terpasang/ter-<em>install</em> Latex.</p>
+
+<pre><code>$ sudo apt-get install texlive
+</code></pre>
+
+<p>Terkadang saat melakukan proses <em>install</em> texlive, kita diberikan pesan <em>error</em> bahwa repositori tidak tersedia, oleh karena itu silahkan tambahkan link repositori untuk texlive.</p>
+
+<pre><code>$ sudo add-apt-repository ppa:texlive-backports/ppa
+$ sudo apt-get update
+$ sudo apt-get install texlive
+</code></pre>
+
+<p>Untuk memudahkan dalam proses <em>editing file</em> Latex dan <em>viewing</em> hasil kode Latex yang dibuat, aku sarankan anda menginstall <em>text editor</em> yang sudah dilengkapi <em>plugin</em> Latex. Aku sendiri menggunakan TexMaker <a href="http://www.xm1math.net/texmaker/">[1]</a> sebagai <em>editor</em>. Cara meng-<em>install</em> TexMaker sebagai berikut.</p>
+
+<pre><code>$ sudo apt-get install texmaker
+</code></pre>
+
+<p>Untuk pengguna sistem operasi selain Ubuntu silahkan merujuk ke web masing-masing aplikasi yang dibutuhkan, <a href="https://www.tug.org/texlive/acquire-netinstall.html">web texlive</a> dan <a href="http://www.xm1math.net/texmaker/download.html">web texmaker</a></p>
+
+<h3 id="download-clone-template-latex-a-id-clone-a:9ce48e0df7230c4df55d18af6849444a"><em>Download/Clone</em> Template Latex <a id="clone"></a></h3>
+
+<p>Sebelumnya, aku telah membuat sebuah mengunggah <em>template</em> yang aku buat ke github. Oleh karena itu, bagi anda yang ingin menggunakan <em>template</em> ini dapat melakukan <em>cloning</em> repositori <em>template</em> ini.</p>
+
+<pre><code>$ git clone https://github.com/haidlir/Latex_TA_S1TT_TelU.git
+</code></pre>
+
+<p>atau anda dapat mendownload <em>file</em> .zip, lalu anda dapat melakukan ekstraksi <em>file</em> .zip tadi. <em>Template</em> dapat diunduh di <a href="https://github.com/haidlir/Latex_TA_S1TT_TelU/archive/master.zip">sini</a>.</p>
+
+<h3 id="dokumentasi-template-latex-untuk-buku-tugas-akhir-a-id-doc-a:9ce48e0df7230c4df55d18af6849444a">Dokumentasi Template Latex untuk Buku Tugas Akhir <a id="doc"></a></h3>
+
+<p>Setelah <em>template</em> sudah berada di <em>local</em> atau komputer anda. Anda dapat memulai proses pembuatan buku tugas akhir anda.</p>
+
+<p><em>Files</em> yang harus di-<em>edit</em> untuk menyesuaikan <em>template</em> ini menjadi buku yang anda inginkan adalah <strong>konfigurasi.tex</strong>. Seusaikan nilai setiap variabel dengan tugas akhir anda.</p>
+
+<pre><code>\var{\judul}{[Judul Tugas Akhir dalam bahasa Indonesia]}
+\Var{\Judul}{[Judul Tugas Akhir dalam bahasa Indonesia]}
+\var{\judulInggris}{[Judul Tugas Akhir dalam bahasa Inggris]}
+\Var{\JudulInggris}{[Judul Tugas Akhir dalam bahasa Inggris]}
+\var{\type}{Tugas Akhir}
+\Var{\Type}{Tugas Akhir}
+\var{\penulis}{[Nama Penulis]}
+\var{\alamat}{[Alamat rumah Penulis]}
+\var{\tlp}{[Nomor kontak Penulis]}
+\var{\email}{[Email Penulis]}
+\Var{\Penulis}{[Nama Penulis]}
+\var{\nim}{[Nim Penulis]}
+\Var{\Fakultas}{[Fakultas Penulis berkuliah]}
+\var{\fakultas}{[Fakultas Penulis berkuliah]}
+\Var{\Program}{[Prodi Penulis berkuliah]}
+\var{\program}{[Prodi Penulis berkuliah]}
+\Var{\Tahun}{[Tahun Publikasi tugas akhir]]}
+\var{\gelar}{[Gelar yang akan diraih Penulis]]}
+\var{\tanggalPengesahan}{[Tanggal pengesahan tugas akhir]} 
+\var{\pembimbingSatu}{[Nama Pembimbing 1]}
+\var{\nikSatu}{[NIP Pembimbing 1]}
+\var{\pembimbingDua}{[Nama Pembimbing 2]}
+\var{\nikDua}{[NIP Pembimbing 2]}
+...
+\Var{\kataPengantar}{Kata Pengantar}
+\Var{\babSatu}{Pendahuluan}
+\Var{\babDua}{Tinjauan Pustaka} -&gt; Ganti dengan nama bab yang diinginkan.
+\Var{\babTiga}{Menggunakan \latex} -&gt; Ganti dengan nama bab yang diinginkan.
+\Var{\babEmpat}{Template \latex~ untuk Tugas Akhir S1 Teknik Telekomunikasi} -&gt; Ganti dengan nama bab yang diinginkan.
+\Var{\babLima}{Kesimpulan dan Saran} -&gt; Ganti dengan nama bab yang diinginkan.
+</code></pre>
+
+<p>Setelah anda merubah nilai variabel di dalam <strong>konfigurasi.tex</strong>, lanjutkan dengan pengisian konten buku anda. Silahkan modifikasi file</p>
+
+<ul>
+<li>abstrak.tex</li>
+<li>abstract.tex</li>
+<li>pengantar.tex</li>
+<li>bab1.tex</li>
+<li>bab2.tex</li>
+<li>bab3.tex</li>
+<li>bab4.tex</li>
+<li>bab5.tex</li>
+<li>pustaka.tex</li>
+</ul>
+
+<p>Dengan menggunakan Latex, anda tidak perlu ribet membuat daftar isi, gambar, dan tabel. Setelah kode-kode Latex diproses <u>dua kali tanpa pesan <em>error</em></u>, biasanya halaman daftar isis, gambar, dan tabel sudah secara otomatis terbuat. Begitu juga dengan halaman pengesahan dan orisinalitas, sudah secara otomatis terbuat sesuai dengan nilai variable yang dimasukkan ke <strong>konfigurasi.tex</strong> tadi.</p>
+
+<p>Beberapa kekurangan dari <em>template</em> ini yang sudah terdeteksi dan masih akan diperbaiki antara lain.</p>
+
+<ul>
+<li>Halaman lampiran yang belum terintegrasi dengan <em>template</em> yang dibuat, sehingga harus dimasukkan atau digabungkan secara manual.</li>
+<li>Oleh karena itu, halaman daftar lampiran juga tidak otomatis terbuat dengan benar, sehingga harus diisi secara manual.</li>
+<li>Pemenggalan kata masih diaktifkan, karena jika tidak diaktifkan, maka <em>listing</em> kode yang dimasukkan ke dalam dokumen Latex tidak bisa melakukan <em>breakline</em>. Namun anda dapat mematikan fitur pemenggalan kata dengan merubah bari ke 275 pada <strong>ta.sty</strong> dari</li>
+</ul>
+
+<pre><code>%\usepackage[none]{hyphenat}
+</code></pre>
+
+<p>menjadi</p>
+
+<pre><code>\usepackage[none]{hyphenat}
+</code></pre>
+
+<p>Bagi kawan-kawan lain yang ingin bertanya maupun memberi kritik dan saran, dipersilahkan menghubungi penulis.</p>
+
+        </div>
+
+              <footer>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+		<li><a>Powered by</a></li>
+                <li><a href="http://gohugo.io">Hugo</a></li>
+                <li><a href="http://bootswatch.com">Bootswatch</a></li>
+                <li><a href="http://getbootstrap.com">Bootstrap</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="pull-right"><a href="#top">Back to top</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </footer>
+
+ 
+     </div>
+     
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="http://haidlir.github.io/blog/js/bootstrap.min.js"></script>
+        <script src="http://haidlir.github.io/blog/js/bootswatch.js"></script>
+    </body>
+</html>
+
+
