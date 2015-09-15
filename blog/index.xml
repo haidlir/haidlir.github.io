@@ -5,8 +5,202 @@
     <link>http://haidlir.github.io/blog/</link>
     <description>Recent content on Haidlir&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 26 Jul 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2015 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://haidlir.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>MPLS in SNHx - a Networking Application using RYU SDN Framework</title>
+      <link>http://haidlir.github.io/blog/projects-related/MPLS-SNHx-HowTo/</link>
+      <pubDate>Mon, 10 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://haidlir.github.io/blog/projects-related/MPLS-SNHx-HowTo/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduction:0232fcf8eb9e6ec93ce2987a2f1fc404&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;Multi-Protocol Label Switching (MPLS) is a forwarding mechanism in data networking by looking up label(s) attached to the packets, instead of IP header that normally used. MPLS header can be consisted of single label or more, called label stack. MPLS standard is handed by Internet Engineering Task Forces (IETF) and involving several other vendor&amp;rsquo;s work since 1997. The goal of MPLS creation is to unify network infrastructure, to forward packets along predefined (explicit) routes, and to support network overlay/virtual network services. One of the original goal, to foster the forwarding mechanism is considered as bogus reason, since the advancement in IP forwarding mechanism (using ASIC) leads to IP packets being switched as fast as labeled packets.&lt;/p&gt;
+
+&lt;p&gt;The label itself contains four field. The first 20-bit stands for label value, so it may has value spanning from 16 to 1,048,575. The next 3-bit is experimental bit, used is QOS traffic classification. The last two are 1-bit Bottom of Stack (BOS) and 8-bit Time to Live (TTL) used to indicate the last label in the MPLS header and remaining hop before discarded, respectively.&lt;/p&gt;
+
+&lt;p&gt;Currently, label distribution is done using Label Distribution Protocol (LDP), Resource Reservation Protocol (RSVP), or “piggy-bag”-ing the  labels on existing IP routing protocol. Those protocol&amp;rsquo;s  control messages are exchanged by each router to its adjacent router or even the remote router (in case of VPN using MP-BGP). This case occurs when router still has “brain”, usually called control plane, to process those control messages and produce label mappings in each router. Furthermore, those label mappings are used by  “muscle”, usually called forwarding plane, to decide which action is applied to incoming labeled packet appropriately.&lt;/p&gt;
+
+&lt;p&gt;Instead of using label distribution mechanism described previously, SNHx uses its own label allocation algorithm which inspired by Segment Routing (SR). Even though, It does not apply all SR&amp;rsquo;s characteristic - just inspired. Since SNHx is a Software Defined Networking (SDN) application, which employs single controller, all control mechanism is done in the controller which is separated from the router/LSR/switch - or call it white-box or datapath. The white-box(es) and the controller use Openflow Protocol as the southbound application programming interface (API) or a communication channel between those two. Openflow specification 1.3 is used as the standard, which has MPLS capability. SNHx is built on top of RYU controller/SDN framework, which using python as the programming language.&lt;/p&gt;
+
+&lt;h1 id=&#34;desclaimer:0232fcf8eb9e6ec93ce2987a2f1fc404&#34;&gt;Desclaimer&lt;/h1&gt;
+
+&lt;p&gt;This working on MPLS is an experimental feature to complement SNHx that has been built previously for some reasons. It may be created without a good planning phase, since when it was being created in leisure time, we just thought-drew-coded immediately, slightly after reading segment-routing paper. Therefore, please do not expect too much of this feature. FYI, it does not provide VPN or QOS service yet.&lt;/p&gt;
+
+&lt;h1 id=&#34;characteristics:0232fcf8eb9e6ec93ce2987a2f1fc404&#34;&gt;Characteristics&lt;/h1&gt;
+
+&lt;p&gt;This MPLS feature is built with some characteristics that may be worth noting.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;A label per destination, ranging from 16&lt;/li&gt;
+&lt;li&gt;Single path for each source-destination pair –&amp;ndash; 1 FEC is 1 LSP&lt;/li&gt;
+&lt;li&gt;Shortest path, with maximum capacity as fraction&amp;rsquo;s denominator for the metric value of each link&lt;/li&gt;
+&lt;li&gt;Dynamic system or adaptive to the topology, static configuration in each datapath is unnecessary&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;label-allocation-and-distribution-mechanism:0232fcf8eb9e6ec93ce2987a2f1fc404&#34;&gt;Label Allocation and Distribution Mechanism&lt;/h1&gt;
+
+&lt;p&gt;A label is associated with a node &amp;mdash; destination node. If there is n nodes, only n label is needed, started from 16. The information of how many node in networks is acquired from the database (in form of python dictionary) collected by SNHx in the initial state, slightly after the communication channel between controller and datapath established. Then, each node is paired with a label in ordered manner from 16. regardless either the time of datapath connected or datapath id.&lt;/p&gt;
+
+&lt;p&gt;SNHx also runs its routing algorithm, in the case of MPLS shortest path routing algorithm is used. The information about the graph is acquired by SNHx using observe-links feature provided by Ryu, then the graph acts as the input for routing algorithm. It yields a list of path between each node to another node. This list will be used as reference to distribute the labels to every node accompanied by appropriate action &amp;mdash; push, pop, or either (swap).&lt;/p&gt;
+
+&lt;p&gt;SNHx install the appropriate action by looking at the path. There two condition that are taken into account: the length of the path, and the ordinal of the node in the path. If the length of the path is only one, or in other word direct link, along with rule of Penultimate-Hop-Popping (PHP) there will be no MPLS action installed to both nodes, instead the packets will be forwarded through IP mechanism. In case of the path&amp;rsquo;s length is more than one hop or more than two nodes, each node will be installed by a rule containing either push or pop action. If the node&amp;rsquo;s ordinal is 0 or ingress switch, push action will be injected into its flow table, while the ordinal is equal to the path&amp;rsquo;s length minus two (|path| - 2) or egress switch, pop action will be installed inside the node&amp;rsquo;s flow table (PHP). Whereas for the node between both of them only forward the packets to appropriate port based on the label header attached in the packets. The feature does not use swap (pop - push) action yet, since it is unnecessary.&lt;/p&gt;
+
+&lt;p&gt;Those steps explained above are executed ten seconds after the controller booted up, and re-executed every sixty second.&lt;/p&gt;
+
+&lt;h1 id=&#34;simple-evaluation:0232fcf8eb9e6ec93ce2987a2f1fc404&#34;&gt;Simple Evaluation&lt;/h1&gt;
+
+&lt;p&gt;This feature was tested in mininet emulator with OVS version 2.4.0, since the push-action bug is solved in this version, or in other word the push action is unable to be used before this OVS&amp;rsquo;s version. The test was conducted in abilene topology containing eleven switches. First, the MPLS&amp;rsquo;s rules were checked using dump-flows command. After that, packet-internet-gopher (ping) command was used to ensure end-to-end connectivity between hosts. Lastly, maximum throughput is measured using iperf command. Another auxiliary measurements was also done to complement the previously explained scenarios and to support in analysis taking.&lt;/p&gt;
+
+&lt;p&gt;Of the evaluation&amp;rsquo;s results, the MPSL setup took 0.0777988433838 second from path calculation to flow table installation. MPLS succeed to create end-to-end connectivity between switches and hosts. However it is noticable that the maximum throughput for MPLS mechanism is only 1.05 Mbps, far less than  IP mechanism&amp;rsquo;s which provided almost 3.3 Gbps. It can be summarized that the performance of the MPLS feature is not well. We thought that there is something wrong in the OVS (in this case 2.4.0 version), hope that in the next OVS released, it will yield better result.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;OVS version checking&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;mininet@mininet-vm:~$ sudo ovs-vsctl show
+0b8ed0aa-67ac-4405-af13-70249a7e8a96
+    ovs_version: &amp;quot;2.4.0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;S1 flow table checking&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;mininet@mininet-vm:~$ sudo ovs-ofctl dump-flows s1 -O OpenFlow13
+OFPST_FLOW reply (OF1.3) (xid=0x2):
+ cookie=0x0, duration=11.188s, table=0, n_packets=13, n_bytes=663, priority=65535,dl_dst=01:80:c2:00:00:0e,dl_type=0x88cc actions=CONTROLLER:65535
+ cookie=0x0, duration=3.716s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.1.0/24 actions=output:2
+ cookie=0x0, duration=3.715s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.2.0/24 actions=output:3
+ cookie=0x0, duration=3.715s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.3.0/24 actions=push_mpls:0x8847,set_field:19-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:3,dec_mpls_ttl
+ cookie=0x0, duration=3.715s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.4.0/24 actions=push_mpls:0x8847,set_field:20-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:3,dec_mpls_ttl
+ cookie=0x0, duration=3.715s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.5.0/24 actions=push_mpls:0x8847,set_field:21-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:3,dec_mpls_ttl
+ cookie=0x0, duration=3.715s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.6.0/24 actions=push_mpls:0x8847,set_field:22-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:3,dec_mpls_ttl
+ cookie=0x0, duration=3.715s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.7.0/24 actions=push_mpls:0x8847,set_field:23-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:2,dec_mpls_ttl
+ cookie=0x0, duration=3.715s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.8.0/24 actions=push_mpls:0x8847,set_field:24-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:2,dec_mpls_ttl
+ cookie=0x0, duration=3.715s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.9.0/24 actions=push_mpls:0x8847,set_field:25-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:2,dec_mpls_ttl
+ cookie=0x0, duration=3.715s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.10.0/24 actions=push_mpls:0x8847,set_field:26-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:2,dec_mpls_ttl
+ cookie=0x0, duration=11.237s, table=0, n_packets=2, n_bytes=684, priority=0 actions=CONTROLLER:65535
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;S5 flow table checking&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;mininet@mininet-vm:~$ sudo ovs-ofctl dump-flows s5 -O OpenFlow13
+OFPST_FLOW reply (OF1.3) (xid=0x2):
+ cookie=0x0, duration=86.091s, table=0, n_packets=126, n_bytes=6426, priority=65535,dl_dst=01:80:c2:00:00:0e,dl_type=0x88cc actions=CONTROLLER:65535
+ cookie=0x0, duration=18.433s, table=0, n_packets=0, n_bytes=0, priority=255,mpls,mpls_label=22 actions=output:3,dec_mpls_ttl
+ cookie=0x0, duration=18.432s, table=0, n_packets=0, n_bytes=0, priority=255,mpls,mpls_label=26 actions=output:4,dec_mpls_ttl
+ cookie=0x0, duration=18.418s, table=0, n_packets=0, n_bytes=0, priority=255,mpls,mpls_label=23 actions=output:2,dec_mpls_ttl
+ cookie=0x0, duration=18.418s, table=0, n_packets=0, n_bytes=0, priority=255,mpls,mpls_label=24 actions=output:2,dec_mpls_ttl
+ cookie=0x0, duration=18.418s, table=0, n_packets=0, n_bytes=0, priority=14,mpls,mpls_label=25 actions=pop_mpls:0x0800,output:4,dec_ttl
+ cookie=0x0, duration=18.375s, table=0, n_packets=0, n_bytes=0, priority=255,mpls,mpls_label=17 actions=output:2,dec_mpls_ttl
+ cookie=0x0, duration=18.374s, table=0, n_packets=0, n_bytes=0, priority=14,mpls,mpls_label=21 actions=pop_mpls:0x0800,output:3,dec_ttl
+ cookie=0x0, duration=18.374s, table=0, n_packets=0, n_bytes=0, priority=255,mpls,mpls_label=16 actions=output:2,dec_mpls_ttl
+ cookie=0x0, duration=18.374s, table=0, n_packets=0, n_bytes=0, priority=255,mpls,mpls_label=18 actions=output:2,dec_mpls_ttl
+ cookie=0x0, duration=18.374s, table=0, n_packets=0, n_bytes=0, priority=14,mpls,mpls_label=19 actions=pop_mpls:0x0800,output:2,dec_ttl
+ cookie=0x0, duration=18.432s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.0.0/24 actions=push_mpls:0x8847,set_field:16-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:2,dec_mpls_ttl
+ cookie=0x0, duration=18.432s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.1.0/24 actions=push_mpls:0x8847,set_field:17-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:2,dec_mpls_ttl
+ cookie=0x0, duration=18.432s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.2.0/24 actions=push_mpls:0x8847,set_field:18-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:2,dec_mpls_ttl
+ cookie=0x0, duration=18.432s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.3.0/24 actions=output:2
+ cookie=0x0, duration=18.432s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.5.0/24 actions=output:3
+ cookie=0x0, duration=18.419s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.6.0/24 actions=push_mpls:0x8847,set_field:22-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:3,dec_mpls_ttl
+ cookie=0x0, duration=18.419s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.7.0/24 actions=push_mpls:0x8847,set_field:23-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:2,dec_mpls_ttl
+ cookie=0x0, duration=18.419s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.8.0/24 actions=push_mpls:0x8847,set_field:24-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:2,dec_mpls_ttl
+ cookie=0x0, duration=18.419s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.9.0/24 actions=output:4
+ cookie=0x0, duration=18.419s, table=0, n_packets=0, n_bytes=0, priority=15,ip,nw_dst=192.168.10.0/24 actions=push_mpls:0x8847,set_field:26-&amp;gt;mpls_label,set_field:1-&amp;gt;mpls_tc,output:4,dec_mpls_ttl
+ cookie=0x0, duration=86.091s, table=0, n_packets=2, n_bytes=684, priority=0 actions=CONTROLLER:65535
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;End-to-end connectivity checking&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;mininet&amp;gt; pingall
+*** Ping: testing ping reachability
+h1 -&amp;gt; h2 h3 h4 h5 h6 h7 h8 h9 h10 h11 
+h2 -&amp;gt; h1 h3 h4 h5 h6 h7 h8 h9 h10 h11 
+h3 -&amp;gt; h1 h2 h4 h5 h6 h7 h8 h9 h10 h11 
+h4 -&amp;gt; h1 h2 h3 h5 h6 h7 h8 h9 h10 h11 
+h5 -&amp;gt; h1 h2 h3 h4 h6 h7 h8 h9 h10 h11 
+h6 -&amp;gt; h1 h2 h3 h4 h5 h7 h8 h9 h10 h11 
+h7 -&amp;gt; h1 h2 h3 h4 h5 h6 h8 h9 h10 h11 
+h8 -&amp;gt; h1 h2 h3 h4 h5 h6 h7 h9 h10 h11 
+h9 -&amp;gt; h1 h2 h3 h4 h5 h6 h7 h8 h10 h11 
+h10 -&amp;gt; h1 h2 h3 h4 h5 h6 h7 h8 h9 h11 
+h11 -&amp;gt; h1 h2 h3 h4 h5 h6 h7 h8 h9 h10 
+*** Results: 0% dropped (110/110 received)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Maximum throughput while using labeling method (failed in TCP measurement)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;root@mininet-vm:~/haidlir# iperf -c 192.168.10.2 -u
+------------------------------------------------------------
+Client connecting to 192.168.10.2, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[ 51] local 192.168.0.2 port 36412 connected with 192.168.10.2 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[ 51]  0.0-10.0 sec  1.25 MBytes  1.05 Mbits/sec
+[ 51] Sent 893 datagrams
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Maximum throughput while using IP Forwarding&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;root@mininet-vm:~/haidlir# iperf -c 192.168.10.2
+------------------------------------------------------------
+Client connecting to 192.168.10.2, TCP port 5001
+TCP window size: 85.3 KByte (default)
+------------------------------------------------------------
+[ 51] local 192.168.0.2 port 54977 connected with 192.168.10.2 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[ 51]  0.0-10.0 sec  3.78 GBytes  3.24 Gbits/sec
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;how-to-use-it:0232fcf8eb9e6ec93ce2987a2f1fc404&#34;&gt;How to Use It&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Clone SNHx repository&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/haidlir/snhx.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Update the configuration file to use MPLS forwarding mechanism&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cd snhx
+$ gedit config.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Set forwarding to MPLS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;    # forwarding&#39;s options = {IP, MPLS}
+    forwarding = &#39;MPLS&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Run the SNHx&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ./run.sh
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Template Latex Buku Tugas Akhir Teknik Telekomunikasi Universitas Telkom - HowTo</title>
